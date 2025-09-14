@@ -10,3 +10,6 @@ export interface Task {
   createdAt: string;     // 作成日時
   updatedAt: string;     // 更新日時
 }
+
+// TaskFormData型はTask型からid、status、createdAt、updatedAtを除外したものです
+export type TaskFormData = Omit<Task, "id" | "status" | "createdAt" | "updatedAt">;

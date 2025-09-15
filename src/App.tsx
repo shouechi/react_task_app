@@ -10,7 +10,7 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/tasks" element={<TaskListPage />} />
       <Route path="tasks/:id" element={<TaskDetailPage />} />
-      <Route path="task/new" element={<TaskCreatePage />}/>
+      <Route path="tasks/new" element={<TaskCreatePage />}/>
     </Routes>
   )
 }

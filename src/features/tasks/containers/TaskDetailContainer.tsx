@@ -4,6 +4,7 @@ import { getTaskById } from "../hooks/getTaskById";
 import { Task } from "../../../types/task";
 import TaskDetail from "../components/TaskDetail";
 import style from "../styles/taskDetail.module.css";
+import TaskDeleteButton from "../components/TaskDeleteButton";
 
 export default function TaskDeatilContainer() {
   const { id } = useParams<{ id?: string }>();
@@ -36,6 +37,10 @@ export default function TaskDeatilContainer() {
   return (
     <div className={style.TaskDeatilContainer}>
       <TaskDetail task={task} />
+      <div>
+        <TaskDeleteButton id={id} />
+      </div>
     </div>
+    
   )
 }

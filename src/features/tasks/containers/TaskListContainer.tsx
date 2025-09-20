@@ -4,18 +4,27 @@ import { Task } from "../../../types/task";
 import TaskCard from "../components/TaskCard";
 import styles from "../styles/TaskListContainer.module.css";
 import { Link } from "react-router-dom";
+import { updateTask } from "../hooks/updateTask";
 
 
 export default function TaskListContainer() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
+  //タスク一覧を取得する関数
+  const feachTasks = async () => {
+    const feachedTasks = await getTasks();
+    setTasks(feachedTasks);
+  };
+
   useEffect(() => {
-    const fetchTasks = async () => {
-      const fetchedTasks = await getTasks();
-      setTasks(fetchedTasks);
-    };
-    fetchTasks();
+    feachTasks();
   }, []);
+
+  //セレクトボックスで変更されたステータスを更新する処理
+  const handleToggleStatus = async (taskId: Task['id'], newStatus: boolean) => {
+    await updateTask(String(taskId), { status: newStatus });
+    feachTasks();
+  }
 
   return (
     <div className={styles.container}>
@@ -34,7 +43,10 @@ export default function TaskListContainer() {
         </div>
         <div className={styles.taskList}>
           {tasks.map((task) => (
-            <TaskCard key={task.id} task={task} />
+            <TaskCard 
+              key={task.id} 
+              task={task}
+              onToggleStatus={handleToggleStatus} />
           ))}
         </div>
       </div>
